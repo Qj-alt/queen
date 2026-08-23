@@ -121,16 +121,14 @@ const products = [
 ];
 
 let cart=[];
-
-async function rupiah(number){
+function rupiah(number){
   return new Intl.NumberFormat("id-ID",{
     style:"currency",
     currency:"IDR",
     maximumFractionDigits:0
   }).format(number);
 }
-
-async function renderProducts(){
+ function renderProducts(){
   const container=document.getElementById("products");
   container.innerHTML=products.map((item,index)=>`
     <div class="product">
@@ -141,19 +139,18 @@ async function renderProducts(){
     </div>
   `).join("");
 }
-
-async function addToCart(index){
+function addToCart(index){
   const product=products[index];
   cart.push({...product,id:Date.now()+Math.random()});
   renderCart();
 }
 
-async function removeItem(id){
+function removeItem(id){
   cart=cart.filter(item=>item.id!==id);
   renderCart();
 }
 
-async function renderCart(){
+function renderCart(){
   const container=document.getElementById("cartItems");
   const totalElement=document.getElementById("total");
 
@@ -185,11 +182,11 @@ async function openCheckout(){
   document.getElementById("checkoutModal").style.display="flex";
 }
 
-async function closeCheckout(){
+function closeCheckout(){
   document.getElementById("checkoutModal").style.display="none";
 }
 
-async function sendOrder(){
+function sendOrder(){
   const username=document.getElementById("username").value.trim();
   const phone=document.getElementById("phone").value.trim();
   const payment=document.getElementById("payment").value;
