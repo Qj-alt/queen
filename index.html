@@ -122,7 +122,7 @@ const products = [
 
 let cart=[];
 
-function rupiah(number){
+async function rupiah(number){
   return new Intl.NumberFormat("id-ID",{
     style:"currency",
     currency:"IDR",
@@ -130,7 +130,7 @@ function rupiah(number){
   }).format(number);
 }
 
-function renderProducts(){
+async function renderProducts(){
   const container=document.getElementById("products");
   container.innerHTML=products.map((item,index)=>`
     <div class="product">
@@ -142,18 +142,18 @@ function renderProducts(){
   `).join("");
 }
 
-function addToCart(index){
+async function addToCart(index){
   const product=products[index];
   cart.push({...product,id:Date.now()+Math.random()});
   renderCart();
 }
 
-function removeItem(id){
+async function removeItem(id){
   cart=cart.filter(item=>item.id!==id);
   renderCart();
 }
 
-function renderCart(){
+async function renderCart(){
   const container=document.getElementById("cartItems");
   const totalElement=document.getElementById("total");
 
@@ -177,7 +177,7 @@ function renderCart(){
   totalElement.textContent=rupiah(total);
 }
 
-function openCheckout(){
+async function openCheckout(){
   if(cart.length===0){
     alert("Keranjang kamu masih kosong yaa ♡");
     return;
@@ -185,11 +185,11 @@ function openCheckout(){
   document.getElementById("checkoutModal").style.display="flex";
 }
 
-function closeCheckout(){
+async function closeCheckout(){
   document.getElementById("checkoutModal").style.display="none";
 }
 
-function sendOrder(){
+async function sendOrder(){
   const username=document.getElementById("username").value.trim();
   const phone=document.getElementById("phone").value.trim();
   const payment=document.getElementById("payment").value;
