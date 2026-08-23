@@ -1,95 +1,71 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QJSTORE - Pricelist Robux</title>
-  <style>
-    body { font-family: sans-serif; background-color: #fff0f5; margin: 0; padding: 20px; }
-    .header { text-align: center; background: #ffb6c1; padding: 20px; border-radius: 20px; color: white; }
-    .section-title { text-align: center; margin: 20px 0; color: #5a2a3a; font-size: 20px; font-weight: bold; }
-    
-    /* Layout Grid Produk */
-    .pricelist-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-      max-width: 500px;
-      margin: 0 auto 20px auto;
-    }
-    .card {
-      background: white;
-      padding: 15px;
-      border-radius: 15px;
-      text-align: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      border: 2px solid #ffe4e1;
-    }
-    .card .icon { font-size: 24px; }
-    .card h3 { margin: 5px 0; color: #4a4a4a; }
-    .card .price { color: #ff69b4; font-weight: bold; margin: 5px 0; }
-    .btn-add {
-      background: #ff69b4;
-      color: white;
-      border: none;
-      padding: 8px 15px;
-      border-radius: 20px;
-      cursor: pointer;
-      width: 100%;
-      font-weight: bold;
-    }
-  </style>
-</head>
-<body>
+<div class="title">🍓 Pricelist Robux</div>
 
-  <div class="header">
-    <h1>🎀 QJSTORE 🎀</h1>
-    <p>Robux murah • Aman • Cepat • Terpercaya ✨</p>
+  <!-- SISIPKAN ELEMEN INI -->
+  <div class="grid">
+    <div class="card">
+      <div>🍓</div>
+      <h3>50 R</h3>
+      <div class="price">Rp 9.000</div>
+      <button class="btn">+ Keranjang</button>
+    </div>
+    <div class="card">
+      <div>🍓</div>
+      <h3>100 R</h3>
+      <div class="price">Rp 18.000</div>
+      <button class="btn">+ Keranjang</button>
+    </div>
+    <div class="card">
+      <div>🍓</div>
+      <h3>200 R</h3>
+      <div class="price">Rp 36.000</div>
+      <button class="btn">+ Keranjang</button>
+    </div>
+    <div class="card">
+      <div>🍓</div>
+      <h3>300 R</h3>
+      <div class="price">Rp 54.000</div>
+      <button class="btn">+ Keranjang</button>
+    </div>
+    <div class="card">
+      <div>🍓</div>
+      <h3>400 R</h3>
+      <div class="price">Rp 72.000</div>
+      <button class="btn">+ Keranjang</button>
+    </div>
+    <div class="card">
+      <div>🍓</div>
+      <h3>500 R</h3>
+      <div class="price">Rp 90.000</div>
+      <button class="btn">+ Keranjang</button>
+    </div>
+    <div class="card">
+      <div>🍓</div>
+      <h3>600 R</h3>
+      <div class="price">Rp 108.000</div>
+      <button class="btn">+ Keranjang</button>
+    </div>
+    <div class="card">
+      <div>🍓</div>
+      <h3>700 R</h3>
+      <div class="price">Rp 126.000</div>
+      <button class="btn">+ Keranjang</button>
+    </div>
+    <div class="card">
+      <div>🍓</div>
+      <h3>800 R</h3>
+      <div class="price">Rp 144.000</div>
+      <button class="btn">+ Keranjang</button>
+    </div>
+    <div class="card">
+      <div>🍓</div>
+      <h3>900 R</h3>
+      <div class="price">Rp 162.000</div>
+      <button class="btn">+ Keranjang</button>
+    </div>
+    <div class="card">
+      <div>🍓</div>
+      <h3>1000 R</h3>
+      <div class="price">Rp 180.000</div>
+      <button class="btn">+ Keranjang</button>
+    </div>
   </div>
-
-  <div class="section-title">🍓 Pricelist Robux</div>
-
-  <!-- KONTAINER PRICELIST -->
-  <div id="pricelist-container" class="pricelist-grid"></div>
-
-  <script>
-    // 1. Data Produk Robux & Harga (Rupiah)
-    const robuxProducts = [
-      { id: 1, amount: '50 R', price: 7000 },
-      { id: 2, amount: '100 R', price: 14000 },
-      { id: 3, amount: '200 R', price: 28000 },
-      { id: 4, amount: '300 R', price: 42000 },
-      { id: 5, amount: '400 R', price: 56000 },
-      { id: 6, amount: '500 R', price: 70000 }
-    ];
-
-    // 2. Fungsi Format Angka ke Rupiah
-    function formatRupiah(number) {
-      return new Intl.NumberFormat('id-ID', {
-        style: 'currency',
-        currency: 'IDR',
-        maximumFractionDigits: 0
-      }).format(number);
-    }
-
-    // 3. Fungsi Render Produk ke DOM
-    function renderPricelist() {
-      const container = document.getElementById('pricelist-container');
-      if (!container) return;
-
-      container.innerHTML = robuxProducts.map(item => `
-        <div class="card">
-          <div class="icon">🍓</div>
-          <h3>${item.amount}</h3>
-          <p class="price">${formatRupiah(item.price)}</p>
-          <button class="btn-add" onclick="addToCart(${item.id})">+ Keranjang</button>
-        </div>
-      `).join('');
-    }
-
-    // 4. Jalankan Render Setelah Halaman Selesai Dimuat
-    document.addEventListener('DOMContentLoaded', renderPricelist);
-  </script>
-
-</body>
-</html>
