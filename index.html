@@ -223,9 +223,44 @@ ${orderList}
 📝 Catatan: ${note || "-"}
 
 Mohon diproses ya kak ♡`;
+  
+      // KODE BARU (Midtrans Payment):
+try {
+  const response = await fetch('https://queen-eta-sand.vercel.app/api', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      order_id: orderId,
+      gross_amount: total,
+      first_name: username,
+      phone: phone
+    })
+  });
 
-  const waNumber="6288229057296";
-  const url="https://wa.me/"+waNumber+"?text="+encodeURIComponent(message);
+  const data = await response.json();
+
+  if (data.token) {
+    window.snap.pay(data.token, {
+      onSuccess: function(result) {
+        alert('Pembayaran Berhasil!');
+        closeCheckout();
+      },
+      onPending: function(result) {
+        alert('Menunggu Pembayaran...');
+      },
+      onError: function(result) {
+        alert('Pembayaran Gagal!');
+      }
+    });
+  } else {
+    alert('Gagal memproses pembayaran Midtrans.');
+  }
+} catch (err) {
+  console.error(err);
+  alert('Terjadi kesalahan koneksi.');
+}
+  
+  
 
   window.open(url,"_blank");
   closeCheckout();
