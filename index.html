@@ -3,274 +3,93 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QJSTORE — Robux Store</title>
-  <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="Mid-client-gEGBOSzEi1mja_RS"></script>
+  <title>QJSTORE - Pricelist Robux</title>
   <style>
-    *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
-    body{background:#fff0f7;color:#5b2942}
-    header{background:linear-gradient(135deg,#ff8fc7,#ffb6dd);color:#fff;text-align:center;padding:35px 20px;border-radius:0 0 35px 35px;box-shadow:0 5px 20px #ff9dca66}
-    header h1{font-size:38px;font-weight:900}
-    header p{margin-top:8px;font-size:15px}
-    .container{width:92%;max-width:1000px;margin:25px auto}
-    .section-title{text-align:center;margin:25px 0 18px;font-size:25px}
-    .products{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
-    .product{background:#fff;border:2px solid #ffd0e6;border-radius:20px;padding:18px 12px;text-align:center;box-shadow:0 5px 15px #ffb3d833;transition:.2s}
-    .product:hover{transform:translateY(-4px);box-shadow:0 8px 20px #ff8fc755}
-    .robux{font-size:27px;margin-bottom:8px}
-    .product h3{font-size:18px;margin-bottom:6px}
-    .price{color:#ff4fa0;font-size:20px;font-weight:bold;margin-bottom:12px}
-    button{border:none;cursor:pointer;border-radius:14px;padding:11px 16px;font-weight:bold;transition:.2s}
-    .add-btn{background:#ff7fbb;color:#fff;width:100%}
-    button:hover{transform:scale(1.03);opacity:.9}
-    .cart{background:#fff;border-radius:25px;padding:22px;margin-top:30px;border:2px solid #ffd0e6;box-shadow:0 5px 20px #ffb3d833}
-    .cart-item{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid #ffd7e9}
-    .remove{background:#ffe0ec;color:#d93479;padding:7px 10px}
-    .total{text-align:right;font-size:21px;font-weight:bold;color:#ff4fa0;margin:18px 0}
-    .checkout{background:linear-gradient(135deg,#ff62ac,#ff9bcb);color:#fff;width:100%;font-size:17px}
-    .info{background:#fff;margin-top:25px;padding:20px;border-radius:20px;border:2px solid #ffd0e6;line-height:1.8}
-    .modal{display:none;position:fixed;inset:0;background:#4d193399;z-index:99;align-items:center;justify-content:center;padding:15px}
-    .modal-box{background:#fff;width:100%;max-width:450px;padding:25px;border-radius:25px;max-height:90vh;overflow-y:auto}
-    .modal-box h2{text-align:center;margin-bottom:18px;color:#ff4fa0}
-    label{display:block;margin:10px 0 5px;font-weight:bold}
-    input,select,textarea{width:100%;border:2px solid #ffd0e6;border-radius:12px;padding:12px;outline:none;background:#fffafd}
-    textarea{resize:vertical}
-    .modal-actions{display:flex;gap:10px;margin-top:18px}
-    .cancel{background:#eee;color:#555;flex:1}
-    .submit{background:#ff70b5;color:#fff;flex:2}
-    .empty{text-align:center;padding:20px;color:#a9788e}
-    footer{text-align:center;padding:30px 15px;color:#9b607b;font-size:13px}
-    .wa{position:fixed;right:18px;bottom:18px;background:#25d366;color:#fff;width:55px;height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:27px;text-decoration:none;box-shadow:0 5px 15px #0003;z-index:50}
-    @media(max-width:500px){header h1{font-size:30px}.products{grid-template-columns:repeat(2,1fr)}.product{padding:15px 9px}}
+    body { font-family: sans-serif; background-color: #fff0f5; margin: 0; padding: 20px; }
+    .header { text-align: center; background: #ffb6c1; padding: 20px; border-radius: 20px; color: white; }
+    .section-title { text-align: center; margin: 20px 0; color: #5a2a3a; font-size: 20px; font-weight: bold; }
+    
+    /* Layout Grid Produk */
+    .pricelist-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      max-width: 500px;
+      margin: 0 auto 20px auto;
+    }
+    .card {
+      background: white;
+      padding: 15px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      border: 2px solid #ffe4e1;
+    }
+    .card .icon { font-size: 24px; }
+    .card h3 { margin: 5px 0; color: #4a4a4a; }
+    .card .price { color: #ff69b4; font-weight: bold; margin: 5px 0; }
+    .btn-add {
+      background: #ff69b4;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+      width: 100%;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
 
-<header>
-  <h1>🎀 QJSTORE 🎀</h1>
-  <p>Robux murah • Aman • Cepat • Terpercaya ✨</p>
-</header>
-
-<main class="container">
-  <h2 class="section-title">🍓 Pricelist Robux</h2>
-  <div class="products" id="products"></div>
-
-  <section class="cart">
-    <h2>🛒 Keranjang</h2>
-    <div id="cartItems">
-      <div class="empty">Keranjang masih kosong ♡</div>
-    </div>
-    <div class="total">Total: <span id="total">Rp 0</span></div>
-    <button class="checkout" onclick="openCheckout()">💗 Checkout Sekarang</button>
-  </section>
-
-  <section class="info">
-    <h3>♡ Informasi Pembelian</h3>
-    <p>• Pastikan username Roblox sudah benar.</p>
-    <p>• Cek kembali nominal sebelum checkout.</p>
-    <p>• Jangan memberikan password akun Roblox.</p>
-    <p>• Pesanan diproses setelah pembayaran dikonfirmasi.</p>
-    <p>• Jika ada kendala, hubungi admin QJSTORE.</p>
-  </section>
-</main>
-
-<footer>© 2026 QJSTORE • All Rights Reserved 🎀</footer>
-
-<a class="wa" href="https://wa.me/6288229057296" target="_blank" title="WhatsApp QJSTORE">☎</a>
-
-<div class="modal" id="checkoutModal">
-  <div class="modal-box">
-    <h2>🎀 Checkout QJSTORE</h2>
-
-    <label>Username Roblox</label>
-    <input type="text" id="username" placeholder="Contoh: QJStore">
-
-    <label>Nomor WhatsApp</label>
-    <input type="tel" id="phone" placeholder="08xxxxxxxxxx">
-
-    <label>Metode Pembayaran</label>
-    <select id="payment">
-      <option value="QRIS">QRIS</option>
-      <option value="DANA">DANA</option>
-      <option value="OVO">OVO</option>
-      <option value="GoPay">GoPay</option>
-    </select>
-
-    <label>Catatan</label>
-    <textarea id="note" rows="3" placeholder="Catatan tambahan..."></textarea>
-
-    <div class="modal-actions">
-      <button class="cancel" onclick="closeCheckout()">Batal</button>
-      <button class="submit" onclick="sendOrder()">💗 Buat Pesanan</button>
-    </div>
+  <div class="header">
+    <h1>🎀 QJSTORE 🎀</h1>
+    <p>Robux murah • Aman • Cepat • Terpercaya ✨</p>
   </div>
-</div>
 
-<script>
-const products = [
-  {robux:50,price:9000},
-  {robux:100,price:18000},
-  {robux:200,price:36000},
-  {robux:300,price:54000},
-  {robux:400,price:72000},
-  {robux:500,price:90000},
-  {robux:600,price:108000},
-  {robux:700,price:126000},
-  {robux:800,price:144000},
-  {robux:900,price:162000},
-  {robux:1000,price:180000}
-];
+  <div class="section-title">🍓 Pricelist Robux</div>
 
-let cart=[];
-await function rupiah(number){
-  return new Intl.NumberFormat("id-ID",{
-    style:"currency",
-    currency:"IDR",
-    maximumFractionDigits:0
-  }).format(number);
-}
- await function renderProducts(){
-  const container=document.getElementById("products");
-  container.innerHTML=products.map((item,index)=>`
-    <div class="product">
-      <div class="robux">🍓</div>
-      <h3>${item.robux} R</h3>
-      <div class="price">${rupiah(item.price)}</div>
-      <button class="add-btn" onclick="addToCart(${index})">+ Keranjang</button>
-    </div>
-  `).join("");
-}
-await function addToCart(index){
-  const product=products[index];
-  cart.push({...product,id:Date.now()+Math.random()});
-  renderCart();
-}
+  <!-- KONTAINER PRICELIST -->
+  <div id="pricelist-container" class="pricelist-grid"></div>
 
-await function removeItem(id){
-  cart=cart.filter(item=>item.id!==id);
-  renderCart();
-}
+  <script>
+    // 1. Data Produk Robux & Harga (Rupiah)
+    const robuxProducts = [
+      { id: 1, amount: '50 R', price: 7000 },
+      { id: 2, amount: '100 R', price: 14000 },
+      { id: 3, amount: '200 R', price: 28000 },
+      { id: 4, amount: '300 R', price: 42000 },
+      { id: 5, amount: '400 R', price: 56000 },
+      { id: 6, amount: '500 R', price: 70000 }
+    ];
 
-await function renderCart(){
-  const container=document.getElementById("cartItems");
-  const totalElement=document.getElementById("total");
+    // 2. Fungsi Format Angka ke Rupiah
+    function formatRupiah(number) {
+      return new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+        maximumFractionDigits: 0
+      }).format(number);
+    }
 
-  if(cart.length===0){
-    container.innerHTML='<div class="empty">Keranjang masih kosong ♡</div>';
-    totalElement.textContent=rupiah(0);
-    return;
-  }
+    // 3. Fungsi Render Produk ke DOM
+    function renderPricelist() {
+      const container = document.getElementById('pricelist-container');
+      if (!container) return;
 
-  container.innerHTML=cart.map(item=>`
-    <div class="cart-item">
-      <div>
-        <strong>🍓 ${item.robux} Robux</strong><br>
-        <small>${rupiah(item.price)}</small>
-      </div>
-      <button class="remove" onclick="removeItem(${item.id})">Hapus</button>
-    </div>
-  `).join("");
+      container.innerHTML = robuxProducts.map(item => `
+        <div class="card">
+          <div class="icon">🍓</div>
+          <h3>${item.amount}</h3>
+          <p class="price">${formatRupiah(item.price)}</p>
+          <button class="btn-add" onclick="addToCart(${item.id})">+ Keranjang</button>
+        </div>
+      `).join('');
+    }
 
-  const total=cart.reduce((sum,item)=>sum+item.price,0);
-  totalElement.textContent=rupiah(total);
-}
-
-  await function openCheckout(){
-  if(cart.length===0){
-    alert("Keranjang kamu masih kosong yaa ♡");
-    return;
-  }
-  document.getElementById("checkoutModal").style.display="flex";
-}
-
-await function closeCheckout(){
-  document.getElementById("checkoutModal").style.display="none";
-}
-
-await function sendOrder(){
-  const username=document.getElementById("username").value.trim();
-  const phone=document.getElementById("phone").value.trim();
-  const payment=document.getElementById("payment").value;
-  const note=document.getElementById("note").value.trim();
-
-  if(!username){
-    alert("Masukkan username Roblox terlebih dahulu.");
-    return;
-  }
-
-  if(!phone){
-    alert("Masukkan nomor WhatsApp.");
-    return;
-  }
-
-  const total=cart.reduce((sum,item)=>sum+item.price,0);
-  const orderList=cart.map(item=>`🍓 ${item.robux} Robux — ${rupiah(item.price)}`).join("\n");
-  const orderId="QJ"+Date.now().toString().slice(-8);
-
-  const message=`🎀 *ORDER QJSTORE* 🎀
-
-🆔 ID Pesanan: ${orderId}
-👤 Username Roblox: ${username}
-📱 WhatsApp: ${phone}
-
-🛍️ *Pesanan:*
-${orderList}
-
-💰 Total: ${rupiah(total)}
-💳 Pembayaran: ${payment}
-📝 Catatan: ${note || "-"}
-
-Mohon diproses ya kak ♡`;
-  
-      // KODE BARU (Midtrans Payment):
-try {
-  const response = await fetch('https://queen-eta-sand.vercel.app/api', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      order_id: orderId,
-      gross_amount: total,
-      first_name: username,
-      phone: phone
-    })
-  });
-
-  const data = await response.json();
-
-  if (data.token) {
-    window.snap.pay(data.token, {
-      onSuccess: function(result) {
-        alert('Pembayaran Berhasil!');
-        closeCheckout();
-      },
-      onPending: function(result) {
-        alert('Menunggu Pembayaran...');
-      },
-      onError: function(result) {
-        alert('Pembayaran Gagal!');
-      }
-    });
-  } else {
-    alert('Gagal memproses pembayaran Midtrans.');
-  }
-} catch (err) {
-  console.error(err);
-  alert('Terjadi kesalahan koneksi.');
-}
-  
-  
-
-  window.open(url,"_blank");
-  closeCheckout();
-}
-
-window.onclick=function(event){
-  const modal=document.getElementById("checkoutModal");
-  if(event.target===modal) closeCheckout();
-};
-
-renderProducts();
-renderCart();
-</script>
+    // 4. Jalankan Render Setelah Halaman Selesai Dimuat
+    document.addEventListener('DOMContentLoaded', renderPricelist);
+  </script>
 
 </body>
 </html>
