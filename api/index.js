@@ -11,7 +11,8 @@ const snap = new midtransClient.Snap({
   serverKey: process.env.MIDTRANS_SERVER_KEY
 });
 
-app.post('/api/index', async (req, res) => {
+app.post('/', async (req, res) => {
+  
   try {
     const { order_id, gross_amount, customer_name } = req.body;
     const parameter = {
