@@ -1,341 +1,307 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QJSTORE - Order Robux</title>
-  <style>
-    :root {
-      --primary-pink: #ff8da1;
-      --bg-pink: #fff0f5;
-      --card-bg: #ffffff;
-      --text-color: #5a2a3a;
-      --accent-pink: #ffb6c1;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Struk Pesanan Robux - QJSTORE</title>
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
 
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: var(--bg-pink);
-      color: var(--text-color);
-      margin: 0;
-      padding: 15px;
-      display: flex;
-      justify-content: center;
-    }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #fff5f7;
+            color: #4a3e3e;
+            display: flex;
+            justify-content: center;
+        }
 
-    .container {
-      width: 100%;
-      max-width: 450px;
-    }
+        .card {
+            background-color: #ffffff;
+            border-radius: 20px;
+            padding: 25px 30px;
+            box-shadow: 0 10px 25px rgba(255, 182, 193, 0.3);
+            border: 2px solid #ffe3e8;
+            max-width: 500px;
+            width: 100%;
+        }
 
-    /* Header */
-    .header {
-      text-align: center;
-      background: linear-gradient(135deg, #ffb6c1, #ff8da1);
-      padding: 25px 15px;
-      border-radius: 25px;
-      color: white;
-      box-shadow: 0 8px 15px rgba(255, 141, 161, 0.2);
-      margin-bottom: 20px;
-    }
+        .header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 2px dashed #ffd1dc;
+            margin-bottom: 20px;
+        }
 
-    .header h1 { margin: 0; font-size: 24px; font-weight: bold; }
-    .header p { margin: 5px 0 0 0; font-size: 13px; opacity: 0.9; }
+        .header .badge {
+            display: inline-block;
+            background-color: #ff6b8b;
+            color: #ffffff;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
 
-    .section-title {
-      text-align: center;
-      font-size: 18px;
-      font-weight: bold;
-      margin: 20px 0 15px 0;
-    }
+        .header h1 {
+            color: #ff477e;
+            font-size: 22px;
+            margin: 5px 0;
+            font-weight: 800;
+        }
 
-    /* Grid Pricelist */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin-bottom: 25px;
-    }
+        .header p {
+            color: #886b71;
+            margin: 0;
+            font-size: 13px;
+        }
 
-    .card {
-      background: var(--card-bg);
-      padding: 15px 10px;
-      border-radius: 18px;
-      text-align: center;
-      border: 2px solid #ffe4e1;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-    }
+        .status-box {
+            background-color: #fff0f3;
+            border: 1.5px solid #ffb3c1;
+            border-radius: 12px;
+            padding: 12px 18px;
+            margin-bottom: 22px;
+            text-align: center;
+        }
 
-    .card .icon { font-size: 22px; margin-bottom: 5px; }
-    .card h3 { margin: 2px 0; font-size: 16px; }
-    .card .price { color: var(--primary-pink); font-weight: bold; margin: 4px 0 10px 0; font-size: 14px; }
+        .status-title {
+            color: #ff477e;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 3px;
+        }
 
-    .btn-add {
-      background: var(--primary-pink);
-      color: white;
-      border: none;
-      padding: 8px;
-      border-radius: 20px;
-      width: 100%;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 3px 8px rgba(255, 141, 161, 0.3);
-      transition: transform 0.1s ease;
-    }
+        .status-sub {
+            color: #725158;
+            font-size: 12px;
+        }
 
-    .btn-add:active { transform: scale(0.95); }
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
 
-    /* Box Keranjang & Info */
-    .box {
-      background: var(--card-bg);
-      padding: 20px;
-      border-radius: 20px;
-      border: 2px solid #ffe4e1;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-      margin-bottom: 20px;
-    }
+        .info-table td {
+            padding: 6px 0;
+            vertical-align: top;
+        }
 
-    .box-title {
-      font-size: 16px;
-      font-weight: bold;
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+        .info-label {
+            color: #a07880;
+            font-size: 13px;
+            width: 45%;
+        }
 
-    /* List Item di Keranjang */
-    .cart-items {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 15px;
-    }
+        .info-value {
+            color: #4a3e3e;
+            font-weight: 600;
+            font-size: 13px;
+            text-align: right;
+        }
 
-    .cart-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #fff5f7;
-      padding: 8px 12px;
-      border-radius: 12px;
-      font-size: 14px;
-    }
+        .section-title {
+            color: #ff477e;
+            font-size: 14px;
+            font-weight: 700;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            display: block;
+            border-left: 4px solid #ff477e;
+            padding-left: 10px;
+        }
 
-    .cart-controls {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+        .order-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
 
-    .cart-btn {
-      background: var(--primary-pink);
-      color: white;
-      border: none;
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      font-weight: bold;
-      cursor: pointer;
-    }
+        .order-table th {
+            background-color: #ffe6eb;
+            color: #ff477e;
+            text-align: left;
+            padding: 10px 12px;
+            font-size: 12px;
+            font-weight: 700;
+            border-radius: 6px;
+        }
 
-    .empty-msg {
-      text-align: center;
-      color: #aaa;
-      font-size: 14px;
-      margin: 15px 0;
-    }
+        .order-table td {
+            padding: 12px;
+            border-bottom: 1px solid #fff0f3;
+            font-size: 13px;
+        }
 
-    .total-price {
-      text-align: right;
-      font-size: 16px;
-      font-weight: bold;
-      color: var(--primary-pink);
-      margin: 15px 0;
-      border-top: 1px dashed #ffd1dc;
-      padding-top: 10px;
-    }
+        .order-table .price-col {
+            text-align: right;
+            font-weight: 600;
+        }
 
-    .btn-checkout {
-      background: var(--primary-pink);
-      color: white;
-      border: none;
-      padding: 12px;
-      border-radius: 25px;
-      width: 100%;
-      font-size: 15px;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(255, 141, 161, 0.4);
-    }
+        .total-box {
+            background-color: #fff9fa;
+            border-radius: 12px;
+            padding: 15px;
+            border: 1px solid #ffe3e8;
+            margin-bottom: 20px;
+        }
 
-    .info-list {
-      padding-left: 18px;
-      margin: 0;
-      font-size: 13px;
-      line-height: 1.6;
-      color: #666;
-    }
-  </style>
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+            font-size: 13px;
+            color: #886b71;
+        }
+
+        .total-row.grand-total {
+            margin-bottom: 0;
+            padding-top: 8px;
+            border-top: 1.5px dashed #ffd1dc;
+            color: #ff477e;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .instructions {
+            background-color: #fff0f5;
+            border-radius: 12px;
+            padding: 15px 18px;
+            margin-top: 20px;
+        }
+
+        .instructions h4 {
+            margin: 0 0 10px 0;
+            color: #ff477e;
+            font-size: 13px;
+        }
+
+        .instructions ol {
+            margin: 0;
+            padding-left: 18px;
+            color: #6b5257;
+            font-size: 12px;
+        }
+
+        .instructions li {
+            margin-bottom: 6px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid #ffe3e8;
+            color: #a07880;
+            font-size: 12px;
+        }
+
+        .heart {
+            color: #ff477e;
+        }
+    </style>
 </head>
 <body>
 
-<div class="container">
-
-  <!-- HEADER -->
-  <div class="header">
-    <h1>🎀 QJSTORE 🎀</h1>
-    <p>Robux murah • Aman • Cepat • Terpercaya ✨</p>
-  </div>
-
-  <!-- PRICELIST -->
-  <div class="section-title">🍓 Pricelist Robux</div>
-  <div class="grid" id="pricelist"></div>
-
-  <!-- KERANJANG PESANAN -->
-  <div class="box">
-    <div class="box-title">🛒 Keranjang Pesanan</div>
-    
-    <div id="cart-list" class="cart-items">
-      <div class="empty-msg">Keranjang masih kosong ♡</div>
-    </div>
-
-    <div class="total-price" id="total-price">Total: Rp 0</div>
-    <button class="btn-checkout" onclick="checkoutWA()">💖 Checkout Sekarang</button>
-  </div>
-
-  <!-- INFORMASI PEMBELIAN -->
-  <div class="box">
-    <div class="box-title">♡ Informasi Pembelian</div>
-    <ul class="info-list">
-      <li>Pastikan username Roblox sudah benar.</li>
-      <li>Cek kembali nominal sebelum checkout.</li>
-      <li>Jangan memberikan password akun.</li>
-    </ul>
-  </div>
-
-</div>
-
-<script>
-  // Data Produk
-  const products = [
-    { id: 1, name: '50 R', price: 9000 },
-    { id: 2, name: '100 R', price: 18000 },
-    { id: 3, name: '200 R', price: 36000 },
-    { id: 4, name: '300 R', price: 54000 },
-    { id: 5, name: '400 R', price: 72000 },
-    { id: 6, name: '500 R', price: 90000 },
-    { id: 7, name: '600 R', price: 108000 },
-    { id: 8, name: '700 R', price: 126000 },
-    { id: 9, name: '800 R', price: 144000 },
-    { id: 10, name: '900 R', price: 162000 },
-    { id: 11, name: '1000 R', price: 180000 }
-  ];
-
-  let cart = {};
-
-  // Render List Produk
-  function renderProducts() {
-    const container = document.getElementById('pricelist');
-    container.innerHTML = products.map(item => `
-      <div class="card">
-        <div class="icon">🍓</div>
-        <h3>${item.name}</h3>
-        <div class="price">Rp ${item.price.toLocaleString('id-ID')}</div>
-        <button class="btn-add" onclick="addToCart(${item.id})">+ Keranjang</button>
-      </div>
-    `).join('');
-  }
-
-  // Tambah Produk ke Keranjang
-  function addToCart(id) {
-    if (cart[id]) {
-      cart[id].qty += 1;
-    } else {
-      const prod = products.find(p => p.id === id);
-      cart[id] = { ...prod, qty: 1 };
-    }
-    updateCartUI();
-  }
-
-  // Ubah Jumlah (Tambah / Kurang)
-  function changeQty(id, delta) {
-    if (cart[id]) {
-      cart[id].qty += delta;
-      if (cart[id].qty <= 0) {
-        delete cart[id];
-      }
-    }
-    updateCartUI();
-  }
-
-  // Update Tampilan Keranjang
-  function updateCartUI() {
-    const listContainer = document.getElementById('cart-list');
-    const totalElement = document.getElementById('total-price');
-    const keys = Object.keys(cart);
-
-    if (keys.length === 0) {
-      listContainer.innerHTML = '<div class="empty-msg">Keranjang masih kosong ♡</div>';
-      totalElement.innerText = 'Total: Rp 0';
-      return;
-    }
-
-    let total = 0;
-    let html = '';
-
-    keys.forEach(id => {
-      const item = cart[id];
-      const subtotal = item.price * item.qty;
-      total += subtotal;
-
-      html += `
-        <div class="cart-item">
-          <div>
-            <strong>${item.name}</strong><br>
-            <small style="color:#888">Rp ${item.price.toLocaleString('id-ID')}</small>
-          </div>
-          <div class="cart-controls">
-            <button class="cart-btn" onclick="changeQty(${id}, -1)">-</button>
-            <span>${item.qty}</span>
-            <button class="cart-btn" onclick="changeQty(${id}, 1)">+</button>
-          </div>
+    <div class="card">
+        <!-- Header toko -->
+        <div class="header">
+            <span class="badge">🎀 QJSTORE 🎀</span>
+            <h1>Rincian Pesanan</h1>
+            <p>Robux Murah • Aman • Cepat • Terpercaya ✨</p>
         </div>
-      `;
-    });
 
-    listContainer.innerHTML = html;
-    totalElement.innerText = `Total: Rp ${total.toLocaleString('id-ID')}`;
-  }
+        <!-- Status Pembayaran -->
+        <div class="status-box">
+            <div class="status-title">⚡ Menunggu Pembayaran Otomatis</div>
+            <div class="status-sub">Selesaikan pembayaran agar Robux langsung terkirim otomatis ke akunmu!</div>
+        </div>
 
-  // Kirim Pesanan ke WhatsApp
-  function checkoutWA() {
-    const keys = Object.keys(cart);
-    if (keys.length === 0) {
-      alert("Keranjang kamu masih kosong!");
-      return;
-    }
+        <!-- Informasi Transaksi -->
+        <table class="info-table">
+            <tr>
+                <td class="info-label">No. Transaksi</td>
+                <td class="info-value">#QJS-20260823-8892</td>
+            </tr>
+            <tr>
+                <td class="info-label">Tanggal Transaksi</td>
+                <td class="info-value">23 Agustus 2026, 20:41 WIB</td>
+            </tr>
+            <tr>
+                <td class="info-label">Username Roblox</td>
+                <td class="info-value"><strong>Tita_Playz</strong></td>
+            </tr>
+            <tr>
+                <td class="info-label">Metode Pembayaran</td>
+                <td class="info-value">QRIS Otomatis (All Payment)</td>
+            </tr>
+        </table>
 
-    let text = "Halo QJSTORE, saya mau order Robux:\n\n";
-    let total = 0;
+        <!-- Item Pesanan -->
+        <span class="section-title">Detail Produk</span>
+        <table class="order-table">
+            <thead>
+                <tr>
+                    <th>Deskripsi Produk</th>
+                    <th style="text-align: center;">Qty</th>
+                    <th class="price-col">Harga</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <strong>🍓 Package 500 R (Robux)</strong><br>
+                        <span style="font-size: 11px; color: #886b71;">Proses Auto-Gamepass / Instant Bot</span>
+                    </td>
+                    <td style="text-align: center;">1x</td>
+                    <td class="price-col">Rp 90.000</td>
+                </tr>
+            </tbody>
+        </table>
 
-    keys.forEach(id => {
-      const item = cart[id];
-      const subtotal = item.price * item.qty;
-      total += subtotal;
-      text += `- ${item.name} x${item.qty} = Rp ${subtotal.toLocaleString('id-ID')}\n`;
-    });
+        <!-- Total Pembayaran -->
+        <div class="total-box">
+            <div class="total-row">
+                <span>Subtotal Produk</span>
+                <span>Rp 90.000</span>
+            </div>
+            <div class="total-row">
+                <span>Biaya Layanan</span>
+                <span>Rp 1.000</span>
+            </div>
+            <div class="total-row">
+                <span>Kode Unik Verifikasi</span>
+                <span>Rp 247</span>
+            </div>
+            <div class="total-row grand-total">
+                <span>Total Pembayaran</span>
+                <span>Rp 91.247</span>
+            </div>
+        </div>
 
-    text += `\n*Total: Rp ${total.toLocaleString('id-ID')}*`;
-    
-    // Ganti nomor WA berikut dengan nomor tokomu (format 628...)
-    const phone = "6288229057296"; 
-    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank');
-  }
+        <!-- Instruksi -->
+        <div class="instructions">
+            <h4>✨ Cara Pembayaran & Verifikasi Otomatis:</h4>
+            <ol>
+                <li>Scan QRIS yang tampil di layar atau transfer pas <strong>Rp 91.247</strong> sampai 3 digit terakhir.</li>
+                <li>Setelah berhasil dibayar, sistem akan **mendeteksi otomatis** dalam 1–3 detik tanpa perlu kirim bukti transfer.</li>
+                <li>Bot kami akan langsung memproses pengiriman **500 Robux** ke akun Roblox kamu! 🎁</li>
+            </ol>
+        </div>
 
-  // Jalankan saat halaman dimuat
-  renderProducts();
-</script>
+        <!-- Footer -->
+        <div class="footer">
+            <p>Terima kasih telah berbelanja di <strong>QJSTORE</strong> <span class="heart">♥</span></p>
+            <p>Jika ada kendala, hubungi Admin CS via WhatsApp dengan menyebutkan No. Transaksi.</p>
+        </div>
+    </div>
 
 </body>
 </html>
