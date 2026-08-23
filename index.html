@@ -3,305 +3,412 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Struk Pesanan Robux - QJSTORE</title>
+    <title>QJSTORE - Store Robux Automatic</title>
     <style>
+        :root {
+            --primary-pink: #ff6b8b;
+            --soft-pink: #ffb3c1;
+            --bg-pink: #fff5f7;
+            --card-bg: #ffffff;
+            --text-dark: #4a3e3e;
+            --text-muted: #886b71;
+        }
+
         *, *::before, *::after {
             box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, sans-serif;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-pink);
+            color: var(--text-dark);
             margin: 0;
-            padding: 20px;
-            background-color: #fff5f7;
-            color: #4a3e3e;
+            padding: 15px;
             display: flex;
             justify-content: center;
         }
 
-        .card {
-            background-color: #ffffff;
-            border-radius: 20px;
-            padding: 25px 30px;
-            box-shadow: 0 10px 25px rgba(255, 182, 193, 0.3);
-            border: 2px solid #ffe3e8;
-            max-width: 500px;
+        .app-container {
             width: 100%;
+            max-width: 480px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
 
-        .header {
-            text-align: center;
-            padding-bottom: 20px;
-            border-bottom: 2px dashed #ffd1dc;
-            margin-bottom: 20px;
-        }
-
-        .header .badge {
-            display: inline-block;
-            background-color: #ff6b8b;
-            color: #ffffff;
-            padding: 4px 16px;
+        /* Header Banner */
+        .banner {
+            background: linear-gradient(135deg, #ff8fa3, #ffb3c1);
+            color: white;
+            padding: 20px;
             border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-            text-transform: uppercase;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(255, 107, 139, 0.25);
         }
 
-        .header h1 {
-            color: #ff477e;
+        .banner h1 {
+            margin: 0;
             font-size: 22px;
-            margin: 5px 0;
             font-weight: 800;
         }
 
-        .header p {
-            color: #886b71;
-            margin: 0;
-            font-size: 13px;
-        }
-
-        .status-box {
-            background-color: #fff0f3;
-            border: 1.5px solid #ffb3c1;
-            border-radius: 12px;
-            padding: 12px 18px;
-            margin-bottom: 22px;
-            text-align: center;
-        }
-
-        .status-title {
-            color: #ff477e;
-            font-weight: bold;
-            font-size: 14px;
-            margin-bottom: 3px;
-        }
-
-        .status-sub {
-            color: #725158;
+        .banner p {
+            margin: 5px 0 0 0;
             font-size: 12px;
+            opacity: 0.95;
         }
 
-        .info-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
+        /* User Input Card */
+        .user-card {
+            background: white;
+            padding: 16px;
+            border-radius: 16px;
+            border: 1.5px solid #ffe3e8;
+            box-shadow: 0 4px 12px rgba(255, 182, 193, 0.15);
         }
 
-        .info-table td {
-            padding: 6px 0;
-            vertical-align: top;
-        }
-
-        .info-label {
-            color: #a07880;
+        .user-card label {
             font-size: 13px;
-            width: 45%;
-        }
-
-        .info-value {
-            color: #4a3e3e;
-            font-weight: 600;
-            font-size: 13px;
-            text-align: right;
-        }
-
-        .section-title {
-            color: #ff477e;
-            font-size: 14px;
             font-weight: 700;
-            margin-top: 20px;
-            margin-bottom: 10px;
+            color: var(--primary-pink);
             display: block;
-            border-left: 4px solid #ff477e;
-            padding-left: 10px;
+            margin-bottom: 6px;
         }
 
-        .order-table {
+        .user-card input {
             width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-
-        .order-table th {
-            background-color: #ffe6eb;
-            color: #ff477e;
-            text-align: left;
-            padding: 10px 12px;
-            font-size: 12px;
-            font-weight: 700;
-            border-radius: 6px;
-        }
-
-        .order-table td {
-            padding: 12px;
-            border-bottom: 1px solid #fff0f3;
+            padding: 10px 14px;
+            border: 1.5px solid #ffd1dc;
+            border-radius: 10px;
+            outline: none;
             font-size: 13px;
+            color: var(--text-dark);
+            background: #fff9fa;
         }
 
-        .order-table .price-col {
-            text-align: right;
+        /* Grid Pricelist */
+        .grid-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--primary-pink);
+            margin: 5px 0 0 0;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .pricelist-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .item-card {
+            background: white;
+            border: 1.5px solid #ffe3e8;
+            border-radius: 14px;
+            padding: 12px;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .item-card:hover {
+            border-color: var(--primary-pink);
+            transform: translateY(-2px);
+        }
+
+        .item-title {
+            font-weight: 800;
+            font-size: 15px;
+            color: var(--text-dark);
+        }
+
+        .item-price {
+            font-size: 12px;
+            color: var(--primary-pink);
             font-weight: 600;
+            margin: 4px 0 10px 0;
         }
 
-        .total-box {
-            background-color: #fff9fa;
-            border-radius: 12px;
-            padding: 15px;
-            border: 1px solid #ffe3e8;
-            margin-bottom: 20px;
+        .btn-add {
+            background-color: #ff8fa3;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
         }
 
-        .total-row {
+        .btn-add:hover {
+            background-color: var(--primary-pink);
+        }
+
+        /* Cart Section */
+        .cart-card {
+            background: white;
+            border-radius: 18px;
+            padding: 16px;
+            border: 2px solid #ffc2d1;
+            box-shadow: 0 8px 20px rgba(255, 179, 193, 0.2);
+        }
+
+        .cart-header {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--primary-pink);
+            margin-bottom: 10px;
             display: flex;
             justify-content: space-between;
-            margin-bottom: 6px;
-            font-size: 13px;
-            color: #886b71;
+            align-items: center;
         }
 
-        .total-row.grand-total {
-            margin-bottom: 0;
+        .cart-items {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 10px 0;
+            max-height: 120px;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            padding: 6px 0;
+            border-bottom: 1px dashed #ffe3e8;
+        }
+
+        .btn-del {
+            background: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 10px;
+            cursor: pointer;
+            margin-left: 6px;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 800;
+            font-size: 14px;
+            color: var(--text-dark);
+            margin-top: 8px;
             padding-top: 8px;
             border-top: 1.5px dashed #ffd1dc;
-            color: #ff477e;
-            font-weight: bold;
-            font-size: 16px;
         }
 
-        .instructions {
-            background-color: #fff0f5;
-            border-radius: 12px;
-            padding: 15px 18px;
-            margin-top: 20px;
-        }
-
-        .instructions h4 {
-            margin: 0 0 10px 0;
-            color: #ff477e;
-            font-size: 13px;
-        }
-
-        .instructions ol {
-            margin: 0;
-            padding-left: 18px;
-            color: #6b5257;
-            font-size: 12px;
-        }
-
-        .instructions li {
-            margin-bottom: 6px;
-        }
-
-        .footer {
+        /* QRIS Display Section */
+        .qris-card {
+            background: white;
+            border-radius: 18px;
+            padding: 18px;
             text-align: center;
-            margin-top: 25px;
-            padding-top: 15px;
-            border-top: 1px solid #ffe3e8;
-            color: #a07880;
-            font-size: 12px;
+            border: 1.5px solid #ffe3e8;
         }
 
-        .heart {
-            color: #ff477e;
+        .qris-card h3 {
+            margin: 0 0 10px 0;
+            font-size: 14px;
+            color: var(--primary-pink);
+        }
+
+        .qris-img {
+            width: 100%;
+            max-width: 280px;
+            border-radius: 12px;
+            border: 1px solid #ffc2d1;
+        }
+
+        /* WA Button */
+        .btn-wa {
+            background-color: #25D366;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 5px;
+            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.25);
+        }
+
+        .empty-cart-msg {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-align: center;
+            padding: 10px 0;
         }
     </style>
 </head>
 <body>
 
-    <div class="card">
-        <!-- Header toko -->
-        <div class="header">
-            <span class="badge">🎀 QJSTORE 🎀</span>
-            <h1>Rincian Pesanan</h1>
-            <p>Robux Murah • Aman • Cepat • Terpercaya ✨</p>
+<div class="app-container">
+    <!-- Banner Store -->
+    <div class="banner">
+        <h1>🎀 QJSTORE 🎀</h1>
+        <p>Robux Murah • Aman • Cepat • Terpercaya ✨</p>
+    </div>
+
+    <!-- Input Username -->
+    <div class="user-card">
+        <label for="robloxUser">👤 Username Roblox Pembeli:</label>
+        <input type="text" id="robloxUser" placeholder="Masukkan Username Roblox kamu...">
+    </div>
+
+    <!-- Title Pricelist -->
+    <div class="grid-title">🍓 Pricelist Robux</div>
+
+    <!-- Daftar Produk -->
+    <div class="pricelist-grid" id="pricelistGrid"></div>
+
+    <!-- Keranjang Pesanan -->
+    <div class="cart-card">
+        <div class="cart-header">
+            <span>🛒 Keranjang Kamu</span>
+            <span id="itemCount" style="font-size:11px; background:#ffe3e8; padding:2px 8px; border-radius:10px;">0 Item</span>
         </div>
-
-        <!-- Status Pembayaran -->
-        <div class="status-box">
-            <div class="status-title">⚡ Menunggu Pembayaran Otomatis</div>
-            <div class="status-sub">Selesaikan pembayaran agar Robux langsung terkirim otomatis ke akunmu!</div>
+        <div id="cartContent">
+            <div class="empty-cart-msg">Keranjang masih kosong, yuk pilih Robux! 🌸</div>
         </div>
-
-        <!-- Informasi Transaksi -->
-        <table class="info-table">
-            <tr>
-                <td class="info-label">No. Transaksi</td>
-                <td class="info-value">#QJS-20260823-8892</td>
-            </tr>
-            <tr>
-                <td class="info-label">Tanggal Transaksi</td>
-                <td class="info-value">23 Agustus 2026, 20:41 WIB</td>
-            </tr>
-            <tr>
-                <td class="info-label">Username Roblox</td>
-                <td class="info-value"><strong>Tita_Playz</strong></td>
-            </tr>
-            <tr>
-                <td class="info-label">Metode Pembayaran</td>
-                <td class="info-value">QRIS Otomatis (All Payment)</td>
-            </tr>
-        </table>
-
-        <!-- Item Pesanan -->
-        <span class="section-title">Detail Produk</span>
-        <table class="order-table">
-            <thead>
-                <tr>
-                    <th>Deskripsi Produk</th>
-                    <th style="text-align: center;">Qty</th>
-                    <th class="price-col">Harga</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        <strong>🍓 Package 500 R (Robux)</strong><br>
-                        <span style="font-size: 11px; color: #886b71;">Proses Auto-Gamepass / Instant Bot</span>
-                    </td>
-                    <td style="text-align: center;">1x</td>
-                    <td class="price-col">Rp 90.000</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <!-- Total Pembayaran -->
-        <div class="total-box">
-            <div class="total-row">
-                <span>Subtotal Produk</span>
-                <span>Rp 90.000</span>
-            </div>
-            <div class="total-row">
-                <span>Biaya Layanan</span>
-                <span>Rp 1.000</span>
-            </div>
-            <div class="total-row">
-                <span>Kode Unik Verifikasi</span>
-                <span>Rp 247</span>
-            </div>
-            <div class="total-row grand-total">
-                <span>Total Pembayaran</span>
-                <span>Rp 91.247</span>
-            </div>
-        </div>
-
-        <!-- Instruksi -->
-        <div class="instructions">
-            <h4>✨ Cara Pembayaran & Verifikasi Otomatis:</h4>
-            <ol>
-                <li>Scan QRIS yang tampil di layar atau transfer pas <strong>Rp 91.247</strong> sampai 3 digit terakhir.</li>
-                <li>Setelah berhasil dibayar, sistem akan **mendeteksi otomatis** dalam 1–3 detik tanpa perlu kirim bukti transfer.</li>
-                <li>Bot kami akan langsung memproses pengiriman **500 Robux** ke akun Roblox kamu! 🎁</li>
-            </ol>
-        </div>
-
-        <!-- Footer -->
-        <div class="footer">
-            <p>Terima kasih telah berbelanja di <strong>QJSTORE</strong> <span class="heart">♥</span></p>
-            <p>Jika ada kendala, hubungi Admin CS via WhatsApp dengan menyebutkan No. Transaksi.</p>
+        <div class="cart-total">
+            <span>Total Bayar:</span>
+            <span id="totalPrice" style="color:var(--primary-pink);">Rp 0</span>
         </div>
     </div>
+
+    <!-- Gambar QRIS -->
+    <div class="qris-card">
+        <h3>💳 Scan QRIS Pembayaran</h3>
+        <img src="1000332369.jpg" alt="QRIS Pinkstudio" class="qris-img">
+        <p style="font-size: 11px; color: var(--text-muted); margin-top: 8px;">
+            NMID: ID1026547975205 (pinkstudio build bloxburg) ✨
+        </p>
+    </div>
+
+    <!-- Button WhatsApp -->
+    <button class="btn-wa" onclick="sendToWhatsApp()">
+        <span>📲 Kirim Pesanan Estetik ke WhatsApp</span>
+    </button>
+</div>
+
+<script>
+    const products = [
+        { name: "50 R", price: 9000 },
+        { name: "100 R", price: 18000 },
+        { name: "200 R", price: 36000 },
+        { name: "300 R", price: 54000 },
+        { name: "400 R", price: 72000 },
+        { name: "500 R", price: 90000 },
+        { name: "600 R", price: 108000 },
+        { name: "700 R", price: 126000 },
+        { name: "800 R", price: 144000 },
+        { name: "900 R", price: 162000 },
+        { name: "1000 R", price: 180000 }
+    ];
+
+    let cart = [];
+
+    // Render List Robux
+    const grid = document.getElementById('pricelistGrid');
+    products.forEach((p, idx) => {
+        grid.innerHTML += `
+            <div class="item-card">
+                <div class="item-title">🍓 ${p.name}</div>
+                <div class="item-price">Rp ${p.price.toLocaleString('id-ID')}</div>
+                <button class="btn-add" onclick="addToCart(${idx})">+ Keranjang</button>
+            </div>
+        `;
+    });
+
+    function addToCart(idx) {
+        cart.push(products[idx]);
+        updateCartUI();
+    }
+
+    function removeFromCart(cartIndex) {
+        cart.splice(cartIndex, 1);
+        updateCartUI();
+    }
+
+    function updateCartUI() {
+        const cartContent = document.getElementById('cartContent');
+        const itemCount = document.getElementById('itemCount');
+        const totalPrice = document.getElementById('totalPrice');
+
+        itemCount.innerText = `${cart.length} Item`;
+
+        if(cart.length === 0) {
+            cartContent.innerHTML = '<div class="empty-cart-msg">Keranjang masih kosong, yuk pilih Robux! 🌸</div>';
+            totalPrice.innerText = 'Rp 0';
+            return;
+        }
+
+        let html = '<ul class="cart-items">';
+        let total = 0;
+
+        cart.forEach((item, index) => {
+            total += item.price;
+            html += `
+                <li class="cart-item">
+                    <span>🍓 ${item.name}</span>
+                    <span>Rp ${item.price.toLocaleString('id-ID')} 
+                        <button class="btn-del" onclick="removeFromCart(${index})">✕</button>
+                    </span>
+                </li>
+            `;
+        });
+        html += '</ul>';
+
+        cartContent.innerHTML = html;
+        totalPrice.innerText = `Rp ${total.toLocaleString('id-ID')}`;
+    }
+
+    function sendToWhatsApp() {
+        const username = document.getElementById('robloxUser').value.trim() || '-';
+        if (cart.length === 0) {
+            alert('Keranjang kamu masih kosong, pilih paket Robux dulu ya! 🌸');
+            return;
+        }
+
+        let total = 0;
+        let itemListText = '';
+        cart.forEach(item => {
+            total += item.price;
+            itemListText += `  • 🍓 ${item.name} — Rp ${item.price.toLocaleString('id-ID')}%0A`;
+        });
+
+        // WhatsApp Aesthetic Template Format
+        const message = 
+`✨ *FORM PESANAN ROBUX - QJSTORE* ✨%0A` +
+`----------------------------------------%0A` +
+`👤 *Username Roblox:* ${username}%0A` +
+`📅 *Tanggal:* ${new Date().toLocaleDateString('id-ID')}%0A%0A` +
+`🛒 *DETAIL PESANAN:*%0A` +
+`${itemListText}%0A` +
+`💳 *TOTAL BAYAR:* *Rp ${total.toLocaleString('id-ID')}*%0A` +
+`----------------------------------------%0A` +
+`📌 *Metode Pembayaran:* QRIS (pinkstudio build bloxburg)%0A` +
+`⚡ *Status:* Menunggu Konfirmasi / Bukti Transfer%0A%0A` +
+`*Terima Kasih sudah berbelanja di QJSTORE!* 🎀💖`;
+
+        const waNumber = "6281234567890"; // Ganti dengan nomor WA Admin toko kamu
+        window.open(`https://wa.me/${waNumber}?text=${message}`, '_blank');
+    }
+</script>
 
 </body>
 </html>
