@@ -1,71 +1,341 @@
-<div class="title">🍓 Pricelist Robux</div>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QJSTORE - Order Robux</title>
+  <style>
+    :root {
+      --primary-pink: #ff8da1;
+      --bg-pink: #fff0f5;
+      --card-bg: #ffffff;
+      --text-color: #5a2a3a;
+      --accent-pink: #ffb6c1;
+    }
 
-  <!-- SISIPKAN ELEMEN INI -->
-  <div class="grid">
-    <div class="card">
-      <div>🍓</div>
-      <h3>50 R</h3>
-      <div class="price">Rp 9.000</div>
-      <button class="btn">+ Keranjang</button>
-    </div>
-    <div class="card">
-      <div>🍓</div>
-      <h3>100 R</h3>
-      <div class="price">Rp 18.000</div>
-      <button class="btn">+ Keranjang</button>
-    </div>
-    <div class="card">
-      <div>🍓</div>
-      <h3>200 R</h3>
-      <div class="price">Rp 36.000</div>
-      <button class="btn">+ Keranjang</button>
-    </div>
-    <div class="card">
-      <div>🍓</div>
-      <h3>300 R</h3>
-      <div class="price">Rp 54.000</div>
-      <button class="btn">+ Keranjang</button>
-    </div>
-    <div class="card">
-      <div>🍓</div>
-      <h3>400 R</h3>
-      <div class="price">Rp 72.000</div>
-      <button class="btn">+ Keranjang</button>
-    </div>
-    <div class="card">
-      <div>🍓</div>
-      <h3>500 R</h3>
-      <div class="price">Rp 90.000</div>
-      <button class="btn">+ Keranjang</button>
-    </div>
-    <div class="card">
-      <div>🍓</div>
-      <h3>600 R</h3>
-      <div class="price">Rp 108.000</div>
-      <button class="btn">+ Keranjang</button>
-    </div>
-    <div class="card">
-      <div>🍓</div>
-      <h3>700 R</h3>
-      <div class="price">Rp 126.000</div>
-      <button class="btn">+ Keranjang</button>
-    </div>
-    <div class="card">
-      <div>🍓</div>
-      <h3>800 R</h3>
-      <div class="price">Rp 144.000</div>
-      <button class="btn">+ Keranjang</button>
-    </div>
-    <div class="card">
-      <div>🍓</div>
-      <h3>900 R</h3>
-      <div class="price">Rp 162.000</div>
-      <button class="btn">+ Keranjang</button>
-    </div>
-    <div class="card">
-      <div>🍓</div>
-      <h3>1000 R</h3>
-      <div class="price">Rp 180.000</div>
-      <button class="btn">+ Keranjang</button>
-    </div>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-pink);
+      color: var(--text-color);
+      margin: 0;
+      padding: 15px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 450px;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      background: linear-gradient(135deg, #ffb6c1, #ff8da1);
+      padding: 25px 15px;
+      border-radius: 25px;
+      color: white;
+      box-shadow: 0 8px 15px rgba(255, 141, 161, 0.2);
+      margin-bottom: 20px;
+    }
+
+    .header h1 { margin: 0; font-size: 24px; font-weight: bold; }
+    .header p { margin: 5px 0 0 0; font-size: 13px; opacity: 0.9; }
+
+    .section-title {
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      margin: 20px 0 15px 0;
+    }
+
+    /* Grid Pricelist */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 25px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      padding: 15px 10px;
+      border-radius: 18px;
+      text-align: center;
+      border: 2px solid #ffe4e1;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    }
+
+    .card .icon { font-size: 22px; margin-bottom: 5px; }
+    .card h3 { margin: 2px 0; font-size: 16px; }
+    .card .price { color: var(--primary-pink); font-weight: bold; margin: 4px 0 10px 0; font-size: 14px; }
+
+    .btn-add {
+      background: var(--primary-pink);
+      color: white;
+      border: none;
+      padding: 8px;
+      border-radius: 20px;
+      width: 100%;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 3px 8px rgba(255, 141, 161, 0.3);
+      transition: transform 0.1s ease;
+    }
+
+    .btn-add:active { transform: scale(0.95); }
+
+    /* Box Keranjang & Info */
+    .box {
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: 20px;
+      border: 2px solid #ffe4e1;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+      margin-bottom: 20px;
+    }
+
+    .box-title {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* List Item di Keranjang */
+    .cart-items {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fff5f7;
+      padding: 8px 12px;
+      border-radius: 12px;
+      font-size: 14px;
+    }
+
+    .cart-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .cart-btn {
+      background: var(--primary-pink);
+      color: white;
+      border: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .empty-msg {
+      text-align: center;
+      color: #aaa;
+      font-size: 14px;
+      margin: 15px 0;
+    }
+
+    .total-price {
+      text-align: right;
+      font-size: 16px;
+      font-weight: bold;
+      color: var(--primary-pink);
+      margin: 15px 0;
+      border-top: 1px dashed #ffd1dc;
+      padding-top: 10px;
+    }
+
+    .btn-checkout {
+      background: var(--primary-pink);
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 25px;
+      width: 100%;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(255, 141, 161, 0.4);
+    }
+
+    .info-list {
+      padding-left: 18px;
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>🎀 QJSTORE 🎀</h1>
+    <p>Robux murah • Aman • Cepat • Terpercaya ✨</p>
   </div>
+
+  <!-- PRICELIST -->
+  <div class="section-title">🍓 Pricelist Robux</div>
+  <div class="grid" id="pricelist"></div>
+
+  <!-- KERANJANG PESANAN -->
+  <div class="box">
+    <div class="box-title">🛒 Keranjang Pesanan</div>
+    
+    <div id="cart-list" class="cart-items">
+      <div class="empty-msg">Keranjang masih kosong ♡</div>
+    </div>
+
+    <div class="total-price" id="total-price">Total: Rp 0</div>
+    <button class="btn-checkout" onclick="checkoutWA()">💖 Checkout Sekarang</button>
+  </div>
+
+  <!-- INFORMASI PEMBELIAN -->
+  <div class="box">
+    <div class="box-title">♡ Informasi Pembelian</div>
+    <ul class="info-list">
+      <li>Pastikan username Roblox sudah benar.</li>
+      <li>Cek kembali nominal sebelum checkout.</li>
+      <li>Jangan memberikan password akun.</li>
+    </ul>
+  </div>
+
+</div>
+
+<script>
+  // Data Produk
+  const products = [
+    { id: 1, name: '50 R', price: 9000 },
+    { id: 2, name: '100 R', price: 18000 },
+    { id: 3, name: '200 R', price: 36000 },
+    { id: 4, name: '300 R', price: 54000 },
+    { id: 5, name: '400 R', price: 72000 },
+    { id: 6, name: '500 R', price: 90000 },
+    { id: 7, name: '600 R', price: 108000 },
+    { id: 8, name: '700 R', price: 126000 },
+    { id: 9, name: '800 R', price: 144000 },
+    { id: 10, name: '900 R', price: 162000 },
+    { id: 11, name: '1000 R', price: 180000 }
+  ];
+
+  let cart = {};
+
+  // Render List Produk
+  function renderProducts() {
+    const container = document.getElementById('pricelist');
+    container.innerHTML = products.map(item => `
+      <div class="card">
+        <div class="icon">🍓</div>
+        <h3>${item.name}</h3>
+        <div class="price">Rp ${item.price.toLocaleString('id-ID')}</div>
+        <button class="btn-add" onclick="addToCart(${item.id})">+ Keranjang</button>
+      </div>
+    `).join('');
+  }
+
+  // Tambah Produk ke Keranjang
+  function addToCart(id) {
+    if (cart[id]) {
+      cart[id].qty += 1;
+    } else {
+      const prod = products.find(p => p.id === id);
+      cart[id] = { ...prod, qty: 1 };
+    }
+    updateCartUI();
+  }
+
+  // Ubah Jumlah (Tambah / Kurang)
+  function changeQty(id, delta) {
+    if (cart[id]) {
+      cart[id].qty += delta;
+      if (cart[id].qty <= 0) {
+        delete cart[id];
+      }
+    }
+    updateCartUI();
+  }
+
+  // Update Tampilan Keranjang
+  function updateCartUI() {
+    const listContainer = document.getElementById('cart-list');
+    const totalElement = document.getElementById('total-price');
+    const keys = Object.keys(cart);
+
+    if (keys.length === 0) {
+      listContainer.innerHTML = '<div class="empty-msg">Keranjang masih kosong ♡</div>';
+      totalElement.innerText = 'Total: Rp 0';
+      return;
+    }
+
+    let total = 0;
+    let html = '';
+
+    keys.forEach(id => {
+      const item = cart[id];
+      const subtotal = item.price * item.qty;
+      total += subtotal;
+
+      html += `
+        <div class="cart-item">
+          <div>
+            <strong>${item.name}</strong><br>
+            <small style="color:#888">Rp ${item.price.toLocaleString('id-ID')}</small>
+          </div>
+          <div class="cart-controls">
+            <button class="cart-btn" onclick="changeQty(${id}, -1)">-</button>
+            <span>${item.qty}</span>
+            <button class="cart-btn" onclick="changeQty(${id}, 1)">+</button>
+          </div>
+        </div>
+      `;
+    });
+
+    listContainer.innerHTML = html;
+    totalElement.innerText = `Total: Rp ${total.toLocaleString('id-ID')}`;
+  }
+
+  // Kirim Pesanan ke WhatsApp
+  function checkoutWA() {
+    const keys = Object.keys(cart);
+    if (keys.length === 0) {
+      alert("Keranjang kamu masih kosong!");
+      return;
+    }
+
+    let text = "Halo QJSTORE, saya mau order Robux:\n\n";
+    let total = 0;
+
+    keys.forEach(id => {
+      const item = cart[id];
+      const subtotal = item.price * item.qty;
+      total += subtotal;
+      text += `- ${item.name} x${item.qty} = Rp ${subtotal.toLocaleString('id-ID')}\n`;
+    });
+
+    text += `\n*Total: Rp ${total.toLocaleString('id-ID')}*`;
+    
+    // Ganti nomor WA berikut dengan nomor tokomu (format 628...)
+    const phone = "6281234567890"; 
+    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank');
+  }
+
+  // Jalankan saat halaman dimuat
+  renderProducts();
+</script>
+
+</body>
+</html>
