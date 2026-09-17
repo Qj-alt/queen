@@ -388,57 +388,48 @@
         cartContent.innerHTML = html;
         totalPrice.innerText = `Rp ${total.toLocaleString('id-ID')}`;
     }
+function sendToWhatsApp() {
+  const username = document.getElementById('username') ? document.getElementById('username').value.trim() : '';
+  const displayName = document.getElementById('displayName') ? document.getElementById('displayName').value.trim() : '';
 
-    function sendToWhatsApp() {
-    const username = document.getElementById('username').value.trim();
-    const displayName = document.getElementById('displayName').value.trim();
-        
+  if (!username) {
+    alert('Masukkan Username Roblox terlebih dahulu!');
+    return;
+  }
 
-    if (!username) {
-        alert('Masukkan Username Roblox terlebih dahulu!');
-        return;
-    }
+  if (!displayName) {
+    alert('Masukkan Display Name Roblox terlebih dahulu!');
+    return;
+  }
 
-    if (!displayName) {
-        alert('Masukkan Display Name Roblox terlebih dahulu!');
-        return;
-    }
+  if (cart.length === 0) {
+    alert('Keranjang masih kosong!');
+    return;
+  }
 
-    if (cart.length === 0) {
-        alert('Keranjang masih kosong!');
-        return;
-    }
+  let total = 0;
+  let itemListText = '';
 
-    let total = 0;
-    let itemListText = '';
+  cart.forEach(item => {
+    total += item.price;
+    itemListText += `%0A🍓 ${item.name} - Rp ${item.price}`;
+  });
 
-    cart.forEach(item => {
-        total += item.price;
-        itemListText += `🍓 ${item.name} - Rp ${item.price.toLocaleString('id-ID')}%0A`;
-    });
+  const tanggal = new Date().toLocaleDateString('id-ID');
 
-    const tanggal = new Date().toLocaleDateString('id-ID');
+  let message = `*FORM PESANAN ROBUX - QUEENSTORE*%0A`;
+  message += `-----------------------------------%0A`;
+  message += `*Username Roblox:* ${username}%0A`;
+  message += `*Display Name:* ${displayName}%0A`;
+  message += `*Tanggal:* ${tanggal}%0A`;
+  message += `*DETAIL PESANAN:* ${itemListText}%0A`;
+  message += `-----------------------------------%0A`;
+  message += `*TOTAL BAYAR:* Rp ${total}`;
 
-    const message =
-`✨ *FORM PESANAN ROBUX - QUEENSTORE* ✨%0A` +
-`━━━━━━━━━━━━━━━━━━━━%0A` +
-`👤 *Username Roblox:* ${username}%0A` +
-`🎀 *Display Name:* ${displayName}%0A` +
-`📅 *Tanggal:* ${tanggal}%0A` +
-`🛒 *DETAIL PESANAN:*%0A` +
-`${itemListText}` +
-`💳 *TOTAL BAYAR:* Rp ${total.toLocaleString('id-ID')}%0A` +
-`━━━━━━━━━━━━━━━━━━━━%0A` +
-`📌 *Metode Pembayaran:* QRIS%0A` +
-`⚡ *Status:* Menunggu Konfirmasi / Bukti Transfer%0A%0A` +
-`🎀 *Terima kasih sudah berbelanja di QUEENSTORE!* 🎀`;
+  const nomorWA = "628229057296"; 
 
-    const waNumber = "62882229057296";
-
-    const waURL = `https://wa.me/${waNumber}?text=${message}`;
-
-    window.location.href = waURL;
-    }
+  window.open(`https://wa.me/${nomorWA}?text=${message}`, '_blank');
+}
 </script>
 
 </body>
