@@ -267,7 +267,12 @@
         <label for="robloxUser">👤 Username Roblox Pembeli:</label>
         <input type="text" id="robloxUser" placeholder="Masukkan Username Roblox kamu...">
     </div>
-
+  <!-- Input Display Name -->
+<div class="user-card">
+  <label for="robloxDisplay">👤 Display Name Roblox</label>
+  <input type="text" id="robloxDisplay" placeholder="Masukkan Display Name Roblox">
+</div>
+    
     <!-- Title Pricelist -->
     <div class="grid-title">🍓 Pricelist Robux</div>
 
@@ -389,7 +394,7 @@
         totalPrice.innerText = `Rp ${total.toLocaleString('id-ID')}`;
     }
 function sendToWhatsApp() {
-  const username = document.getElementById('username') ? document.getElementById('username').value.trim() : '';
+  const username = document.getElementById('username').value.trim();
   const displayName = document.getElementById('displayName') ? document.getElementById('displayName').value.trim() : '';
 
   if (!username) {
