@@ -395,7 +395,6 @@
             alert('Keranjang kamu masih kosong, pilih paket Robux dulu ya! 🌸');
             return;
         }
-
         let total = 0;
         let itemListText = '';
         cart.forEach(item => {
@@ -408,6 +407,7 @@
 `✨ *FORM PESANAN ROBUX - QUEENSTORE* ✨%0A` +
 `----------------------------------------%0A` +
 `👤 *Username Roblox:* ${username}%0A` +
+`🎀 *Display Name:* ${displayName}%0A` +
 `📅 *Tanggal:* ${new Date().toLocaleDateString('id-ID')}%0A%0A` +
 `🛒 *DETAIL PESANAN:*%0A` +
 `${itemListText}%0A` +
