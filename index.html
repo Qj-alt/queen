@@ -392,8 +392,8 @@
         totalPrice.innerText = `Rp ${total.toLocaleString('id-ID')}`;
     }
 function sendToWhatsApp() {
-  const username = document.getElementById('username').value.trim();
-  const displayName = document.getElementById('displayName') ? document.getElementById('displayName').value.trim() : '';
+  const username = document.getElementById('robloxUser') ? document.getElementById('robloxUser').value.trim() : '';
+  const displayName = document.getElementById('robloxDisplay') ? document.getElementById('robloxDisplay').value.trim() : '';
 
   if (!username) {
     alert('Masukkan Username Roblox terlebih dahulu!');
@@ -405,7 +405,7 @@ function sendToWhatsApp() {
     return;
   }
 
-  if (cart.length === 0) {
+  if (typeof cart === 'undefined' || cart.length === 0) {
     alert('Keranjang masih kosong!');
     return;
   }
@@ -422,8 +422,8 @@ function sendToWhatsApp() {
 
   let message = `*FORM PESANAN ROBUX - QUEENSTORE*%0A`;
   message += `-----------------------------------%0A`;
-  message += `*Username Roblox:* ${username}%0A`;
-  message += `*Display Name:* ${displayName}%0A`;
+  message += `*Username Roblox:* ${encodeURIComponent(username)}%0A`;
+  message += `*Display Name:* ${encodeURIComponent(displayName)}%0A`;
   message += `*Tanggal:* ${tanggal}%0A`;
   message += `*DETAIL PESANAN:* ${itemListText}%0A`;
   message += `-----------------------------------%0A`;
@@ -433,7 +433,5 @@ function sendToWhatsApp() {
 
   window.open(`https://wa.me/${nomorWA}?text=${message}`, '_blank');
 }
-</script>
-
 </body>
 </html>
